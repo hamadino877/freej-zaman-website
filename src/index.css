@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #1c1d20;
+    --color-surface: #22232a;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: rgba(255,255,255,0.8);
+    --color-accent: #eab580;
+    --color-accent-strong: #e88c43;
+    --color-border: rgba(255,255,255,0.1);
+    --color-border-hover: rgba(234,181,128,0.3);
+    --color-border-active: rgba(232,140,67,0.6);
+    --color-success: #27ae60;
+    --color-form-bg: #2a2d3a;
+    --color-form-focus: rgba(255,255,255,0.1);
+
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.75rem;
+    --radius-pill: 9999px;
+
+    --background: 240 6% 11%;
+    --foreground: 0 0% 100%;
+    --card: 240 6% 14%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 6% 14%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 33 66% 71%;
+    --primary-foreground: 240 6% 11%;
+    --secondary: 240 6% 14%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 6% 14%;
+    --muted-foreground: 0 0% 80%;
+    --accent: 33 66% 71%;
+    --accent-foreground: 240 6% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 100% / 0.1;
+    --input: 240 6% 14%;
+    --ring: 33 66% 71%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans Arabic', system-ui, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass-panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .glass-panel:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: 0 0 20px rgba(234,181,128,0.08);
+  }
+}
+
+@keyframes smoke-text-reveal {
+  0% {
+    text-shadow: 0 0 80px rgba(234, 181, 128, 0.5);
+    opacity: 0;
+  }
+  100% {
+    text-shadow: 0 0 0px rgba(234, 181, 128, 0);
+    opacity: 1;
+  }
+}
+
+.smoke-heading {
+  opacity: 0;
+}
+
+.smoke-heading.is-visible {
+  animation: smoke-text-reveal 2.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
