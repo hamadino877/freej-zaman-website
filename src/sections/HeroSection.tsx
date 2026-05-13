@@ -62,7 +62,7 @@ export default function HeroSection() {
           filter: isMobile ? 'blur(60px) saturate(0.3)' : 'blur(100px) saturate(0.3)',
         }}
       >
-        <source src="/videos/hero-smoke.mp4" type="video/mp4" />
+        <source src="/hero-smoke.mp4" type="video/mp4" />
       </video>
 
       {/* Black overlay */}
@@ -128,7 +128,7 @@ export default function HeroSection() {
             opacity: 0,
           }}
         >
-          <source src="/videos/hero-text-video.mp4" type="video/mp4" />
+          <source src="/hero-text-video.mp4" type="video/mp4" />
         </video>
 
         {/* Headline with video background clip */}
@@ -137,7 +137,7 @@ export default function HeroSection() {
           style={{
             fontSize: 'clamp(2.5rem, 8vw, 6rem)',
             lineHeight: 1.0,
-            background: 'url(/videos/hero-text-video.mp4) center/cover no-repeat',
+            background: 'url(/hero-text-video.mp4) center/cover no-repeat',
             WebkitBackgroundClip: 'text',
             backgroundClip: 'text',
             color: 'transparent',
