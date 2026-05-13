@@ -7,15 +7,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
-  const textVideoContainerRef = useRef<HTMLDivElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
-    const container = textVideoContainerRef.current;
+    const container = textContainerRef.current;
     const hero = heroRef.current;
     if (!container || !hero) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
     if (prefersReducedMotion) {
       container.style.opacity = '1';
       return;
@@ -38,19 +41,16 @@ export default function HeroSection() {
 
   const scrollToSection = (href: string) => {
     const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section
       ref={heroRef}
       id="hero"
-      className="relative w-full overflow-hidden"
-      style={{ height: '100vh' }}
+      className="relative w-full h-screen overflow-hidden"
     >
-      {/* Base smoke video */}
+      {/* 🔥 BACKGROUND SMOKE VIDEO */}
       <video
         autoPlay
         loop
@@ -59,19 +59,21 @@ export default function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover"
         style={{
           zIndex: 0,
-          filter: isMobile ? 'blur(60px) saturate(0.3)' : 'blur(100px) saturate(0.3)',
+          filter: isMobile
+            ? 'blur(60px) saturate(0.3)'
+            : 'blur(100px) saturate(0.3)',
         }}
       >
         <source src="/hero-smoke.mp4" type="video/mp4" />
       </video>
 
-      {/* Black overlay */}
+      {/* DARK OVERLAY */}
       <div
         className="absolute inset-0"
         style={{ background: 'rgba(0,0,0,0.6)', zIndex: 1 }}
       />
 
-      {/* Company label - left/top area */}
+      {/* LEFT LABEL */}
       <div
         className="absolute z-[3] flex flex-col items-start"
         style={{
@@ -81,30 +83,34 @@ export default function HeroSection() {
         }}
       >
         <div
-          className="text-sm font-bold tracking-[0.2em] mb-4"
           style={{
-            color: 'var(--color-accent)',
+            color: '#eab580',
             opacity: 0.6,
             fontSize: 'clamp(0.7rem, 1vw, 0.875rem)',
+            fontWeight: 700,
+            letterSpacing: '0.2em',
+            marginBottom: '10px',
           }}
         >
           FREEJ ZAMAN LLC
         </div>
+
         <div
-          className="text-sm font-bold tracking-[0.2em] mb-4"
           style={{
-            color: 'var(--color-accent)',
+            color: '#eab580',
             opacity: 0.6,
             fontSize: 'clamp(0.7rem, 1vw, 0.875rem)',
+            fontWeight: 700,
+            letterSpacing: '0.2em',
           }}
         >
           فريج زمان
         </div>
       </div>
 
-      {/* Text video container - centered */}
+      {/* CENTER CONTENT */}
       <div
-        ref={textVideoContainerRef}
+        ref={textContainerRef}
         className="absolute flex flex-col items-center justify-center px-5"
         style={{
           top: '50%',
@@ -115,7 +121,7 @@ export default function HeroSection() {
           zIndex: 2,
         }}
       >
-        {/* Background video for text */}
+        {/* 🔥 TEXT VIDEO (CORRECT WAY) */}
         <video
           autoPlay
           loop
@@ -123,33 +129,30 @@ export default function HeroSection() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            zIndex: -1,
+            zIndex: 0,
+            opacity: 0.25, // 👈 مهم جدًا (بدل 0)
             filter: 'brightness(1.2) contrast(1.1)',
-            opacity: 0,
           }}
         >
           <source src="/hero-text-video.mp4" type="video/mp4" />
         </video>
 
-        {/* Headline with video background clip */}
+        {/* HEADING */}
         <h1
-          className="font-black text-center px-5"
+          className="relative z-10 font-black text-center"
           style={{
             fontSize: 'clamp(2.5rem, 8vw, 6rem)',
-            lineHeight: 1.0,
-            background: 'url(/hero-text-video.mp4) center/cover no-repeat',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            color: 'transparent',
-            fontWeight: 900,
+            lineHeight: 1,
+            color: 'white',
             margin: 0,
           }}
         >
           حلول المطابخ المتكاملة
         </h1>
 
+        {/* DESCRIPTION */}
         <p
-          className="text-center mt-6"
+          className="relative z-10 text-center mt-6"
           style={{
             color: 'rgba(255,255,255,0.8)',
             fontSize: 'clamp(1rem, 2vw, 1.125rem)',
@@ -160,16 +163,16 @@ export default function HeroSection() {
           تجهيز المطاعم الجديدة والحالية وصيانة المعدات في جميع أنحاء المنطقة
         </p>
 
+        {/* BUTTON */}
         <button
           onClick={() => scrollToSection('#maintenance')}
-          className="inline-block mt-8 font-semibold transition-all duration-300"
+          className="relative z-10 mt-8 font-semibold transition-all duration-300"
           style={{
             padding: '12px 32px',
             border: '1px solid #eab580',
             borderRadius: '9999px',
             color: '#eab580',
             background: 'transparent',
-            textDecoration: 'none',
             cursor: 'pointer',
           }}
           onMouseEnter={(e) => {
@@ -185,13 +188,12 @@ export default function HeroSection() {
         </button>
       </div>
 
-      {/* Scroll chevron */}
+      {/* SCROLL ICON */}
       <button
         onClick={() => scrollToSection('#equipment')}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[3] animate-bounce"
-        aria-label="Scroll down"
       >
-        <ChevronDown size={32} style={{ color: 'var(--color-accent)', opacity: 0.7 }} />
+        <ChevronDown size={32} style={{ color: '#eab580', opacity: 0.7 }} />
       </button>
     </section>
   );
